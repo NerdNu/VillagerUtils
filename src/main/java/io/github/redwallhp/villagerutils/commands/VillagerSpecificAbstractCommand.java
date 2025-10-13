@@ -1,11 +1,11 @@
 package io.github.redwallhp.villagerutils.commands;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.WanderingTrader;
-
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
@@ -16,7 +16,7 @@ import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
  */
 public abstract class VillagerSpecificAbstractCommand extends AbstractCommand {
     /**
-     * Contstructor.
+     * Constructor.
      * 
      * @param plugin the owning plugin.
      * @param permission the command permission.
@@ -27,9 +27,9 @@ public abstract class VillagerSpecificAbstractCommand extends AbstractCommand {
 
     /**
      * Return the Villager (but not other AbstractVillager subtypes) in the
-     * players's line of sight, and send appropriate error messages to the
+     * player line of sight, and send appropriate error messages to the
      * player if they are looking at something else.
-     * 
+     * <p>
      * The intended purpose of this method is to return a Villager instance for
      * use in commands that perform Villager-specific actions where just any
      * AbstractVillager (such as WanderingTrader) would not be appropriate.
@@ -38,22 +38,22 @@ public abstract class VillagerSpecificAbstractCommand extends AbstractCommand {
      * @param wanderingTraderMessage the error message to send if the player is
      *        looking at a WanderingTrader.
      * @return the Villager (but not other AbstractVillager subtypes) in the
-     *         players's line of sight, or null if the player is not a Villager.
+     *         player line of sight, or null if the player is not a Villager.
      */
     public Villager getVillagerInLineOfSight(Player player, String wanderingTraderMessage) {
         AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
         if (target == null) {
-            player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
+            player.sendMessage(Component.text("You're not looking at a villager.", NamedTextColor.RED));
             return null;
         }
 
         if (target instanceof WanderingTrader) {
-            player.sendMessage(ChatColor.RED + wanderingTraderMessage);
+            player.sendMessage(Component.text(wanderingTraderMessage, NamedTextColor.RED));
             return null;
         }
 
         if (!(target instanceof Villager)) {
-            player.sendMessage(ChatColor.RED + "The game added a new villager type. Remind a tech!");
+            player.sendMessage(Component.text("The game added a new villager type. Remind a tech!", NamedTextColor.RED));
             return null;
         }
 
