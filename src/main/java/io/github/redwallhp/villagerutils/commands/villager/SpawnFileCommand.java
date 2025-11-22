@@ -166,8 +166,8 @@ public class SpawnFileCommand extends AbstractCommand {
         }
         villager.setRecipes(recipes);
 
-        String description = villager.getVillagerType().toString().toLowerCase() +
-                " villager, profession " + villager.getProfession().toString().toLowerCase() +
+        String description = villager.getVillagerType().getKey().getKey() +
+                " villager, profession " + villager.getProfession().getKey().getKey() +
                 ", level " + villager.getVillagerLevel();
 
         plugin.getLogger().info(String.format("%s spawned %s at %d, %d, %d",

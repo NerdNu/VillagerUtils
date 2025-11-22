@@ -51,8 +51,8 @@ public class VillagerLogger implements Listener {
         }
 
         if (villager instanceof Villager v) {
-            sb.append(String.format("Profession: %s | ", v.getProfession()));
-            sb.append(String.format("Biome: %s | ", v.getVillagerType()));
+            sb.append(String.format("Profession: %s | ", v.getProfession().getKey().getKey()));
+            sb.append(String.format("Biome: %s | ", v.getVillagerType().getKey().getKey()));
             sb.append(String.format("Level: %d | ", v.getVillagerLevel()));
             sb.append(String.format("Experience: %d | ", v.getVillagerExperience()));
         }
