@@ -70,7 +70,7 @@ public class VillagerHelper {
      */
     public static List<String> getProfessionNames() {
         return Registry.VILLAGER_PROFESSION.stream()
-                .map(p -> p.key().toString().replace("minecraft:", ""))
+                .map(p -> p.getKey().getKey())
                 .sorted()
                 .collect(Collectors.toList());
     }
@@ -82,7 +82,7 @@ public class VillagerHelper {
      */
     public static List<String> getVillagerTypeNames() {
         return Registry.VILLAGER_TYPE.stream()
-                .map(t -> t.key().toString().replace("minecraft:", ""))
+                .map(t -> t.getKey().getKey())
                 .sorted()
                 .collect(Collectors.toList());
     }
