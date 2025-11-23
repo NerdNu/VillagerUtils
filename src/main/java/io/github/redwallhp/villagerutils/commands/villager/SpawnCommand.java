@@ -90,12 +90,11 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
             villager.setVillagerLevel(level);
         }
 
-        String description = villager.getVillagerType().getKey().getKey() +
-                " villager, profession " + villager.getProfession().getKey().getKey() +
-                ", level " + villager.getVillagerLevel();
+        String description = VillagerHelper.getDescription(villager);
 
-        plugin.getLogger().info(player.getName() + " spawned " + description +
-                " at " + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
+        plugin.getLogger().info(String.format("%s spawned %s at %d, %d, %d",
+                player.getName(), description, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
+
         player.sendMessage(Component.text("Spawned " + description + ".", NamedTextColor.DARK_AQUA));
         return true;
     }

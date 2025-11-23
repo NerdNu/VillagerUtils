@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
@@ -166,9 +168,7 @@ public class SpawnFileCommand extends AbstractCommand {
         }
         villager.setRecipes(recipes);
 
-        String description = villager.getVillagerType().getKey().getKey() +
-                " villager, profession " + villager.getProfession().getKey().getKey() +
-                ", level " + villager.getVillagerLevel();
+        String description = VillagerHelper.getDescription(villager);
 
         plugin.getLogger().info(String.format("%s spawned %s at %d, %d, %d",
                 player.getName(), description, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
