@@ -132,7 +132,14 @@ public class SpawnFileCommand extends AbstractCommand {
             return false;
         }
 
-        villager.setVillagerLevel(config.getInt("level"));
+        int level = config.getInt("level", 5);
+        villager.setVillagerLevel(level);
+
+        // A villager's profession will reset if they do not have a job site, have 0 XP, and level <= 1.
+        // To workaround this, we set XP to a non-zero value if the level is 1.
+        if (level == 1) {
+            villager.setVillagerExperience(1);
+        }
 
         if (config.getBoolean("static")) {
             plugin.getVillagerMeta().STATIC_MERCHANTS.add(villager.getUniqueId().toString());
