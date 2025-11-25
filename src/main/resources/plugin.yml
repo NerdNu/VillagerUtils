@@ -3,7 +3,7 @@ version: ${project.version}
 main: io.github.redwallhp.villagerutils.VillagerUtils
 description: Tools for managing villagers
 author: redwall_hp
-contributors: [Mats1300]
+contributors: [Mats1300, drtmv]
 website: https://github.com/NerdNu/VillagerUtils
 api-version: 1.21.8
 softdepend: [WorldGuard]
