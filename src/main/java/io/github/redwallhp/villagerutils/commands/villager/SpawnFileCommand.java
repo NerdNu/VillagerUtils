@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
@@ -130,7 +132,14 @@ public class SpawnFileCommand extends AbstractCommand {
             return false;
         }
 
-        villager.setVillagerLevel(config.getInt("level"));
+        int level = config.getInt("level", 5);
+        villager.setVillagerLevel(level);
+
+        // A villager's profession will reset if they do not have a job site, have 0 XP, and level <= 1.
+        // To workaround this, we set XP to a non-zero value if the level is 1.
+        if (level == 1) {
+            villager.setVillagerExperience(1);
+        }
 
         if (config.getBoolean("static")) {
             plugin.getVillagerMeta().STATIC_MERCHANTS.add(villager.getUniqueId().toString());
@@ -166,9 +175,7 @@ public class SpawnFileCommand extends AbstractCommand {
         }
         villager.setRecipes(recipes);
 
-        String description = villager.getVillagerType().toString().toLowerCase() +
-                " villager, profession " + villager.getProfession().toString().toLowerCase() +
-                ", level " + villager.getVillagerLevel();
+        String description = VillagerHelper.getDescription(villager);
 
         plugin.getLogger().info(String.format("%s spawned %s at %d, %d, %d",
                 player.getName(), description, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
