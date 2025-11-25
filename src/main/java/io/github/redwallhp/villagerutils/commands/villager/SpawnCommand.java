@@ -64,7 +64,7 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
             }
         }
 
-        Integer level = null;
+        int level = 5;
         if (args.length == 3) {
             try {
                 level = Integer.parseInt(args[2]);
@@ -86,16 +86,19 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
         if (profession != null) {
             villager.setProfession(profession);
         }
-        if (level != null) {
-            villager.setVillagerLevel(level);
+        villager.setVillagerLevel(level);
+
+        // A villager's profession will reset if they do not have a job site, have 0 XP, and level <= 1.
+        // To workaround this, we set XP to a non-zero value if the level is 1.
+        if (level == 1) {
+            villager.setVillagerExperience(1);
         }
 
-        String description = villager.getVillagerType().toString().toLowerCase() +
-                " villager, profession " + villager.getProfession().toString().toLowerCase() +
-                ", level " + villager.getVillagerLevel();
+        String description = VillagerHelper.getDescription(villager);
 
-        plugin.getLogger().info(player.getName() + " spawned " + description +
-                " at " + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
+        plugin.getLogger().info(String.format("%s spawned %s at %d, %d, %d",
+                player.getName(), description, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
+
         player.sendMessage(Component.text("Spawned " + description + ".", NamedTextColor.DARK_AQUA));
         return true;
     }

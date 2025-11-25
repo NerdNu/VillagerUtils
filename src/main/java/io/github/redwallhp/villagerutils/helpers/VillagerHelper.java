@@ -11,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Helper methods for working with Villagers
@@ -70,7 +71,7 @@ public class VillagerHelper {
      */
     public static List<String> getProfessionNames() {
         return Registry.VILLAGER_PROFESSION.stream()
-                .map(p -> p.key().toString().replace("minecraft:", ""))
+                .map(p -> p.getKey().getKey())
                 .sorted()
                 .collect(Collectors.toList());
     }
@@ -82,8 +83,19 @@ public class VillagerHelper {
      */
     public static List<String> getVillagerTypeNames() {
         return Registry.VILLAGER_TYPE.stream()
-                .map(t -> t.key().toString().replace("minecraft:", ""))
+                .map(t -> t.getKey().getKey())
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Return a human readable description of a villager.
+     *
+     * @return String description including villager type, profession, and level.
+     */
+    public static @NotNull String getDescription(Villager villager) {
+        return villager.getVillagerType().getKey().getKey() +
+                " villager, profession " + villager.getProfession().getKey().getKey() +
+                ", level " + villager.getVillagerLevel();
     }
 }

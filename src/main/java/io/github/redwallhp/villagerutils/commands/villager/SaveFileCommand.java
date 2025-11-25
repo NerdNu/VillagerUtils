@@ -62,8 +62,8 @@ public class SaveFileCommand extends VillagerSpecificAbstractCommand {
         String name = customName != null ? PlainTextComponentSerializer.plainText().serialize(customName) : null;
 
         config.set("name", name);
-        config.set("biome", villager.getVillagerType().toString());
-        config.set("profession", villager.getProfession().toString());
+        config.set("biome", villager.getVillagerType().getKey().getKey());
+        config.set("profession", villager.getProfession().getKey().getKey());
         config.set("level", villager.getVillagerLevel());
         config.set("static", plugin.getVillagerMeta().STATIC_MERCHANTS.contains(villager.getUniqueId().toString()));
 
