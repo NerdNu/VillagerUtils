@@ -1,6 +1,6 @@
 # VillagerUtils
 
-Tools for managing villagers on Spigot servers.
+Tools for managing villagers on Paper servers.
 
 ![Editing a villager trade](http://i.imgur.com/pBWpb0d.gif)
 
